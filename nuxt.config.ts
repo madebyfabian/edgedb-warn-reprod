@@ -3,7 +3,10 @@ export default defineNuxtConfig({
 	typescript: {
 		strict: true,
 		tsConfig: {
-			downlevelIteration: true,
+			compilerOptions: {
+				noUnusedLocals: false,
+				downlevelIteration: true,
+			},
 		},
 	},
 })

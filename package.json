@@ -5,9 +5,13 @@
 		"start": "nuxt dev",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
-		"postinstall": "nuxt prepare"
+		"postinstall": "nuxt prepare",
+		"generate-types:edgedb": "npx @edgedb/generate edgeql-js",
+		"edgedb-migration:create": "edgedb migration create",
+		"edgedb-migration:apply": "edgedb migrate"
 	},
 	"devDependencies": {
+		"@edgedb/generate": "^0.0.6",
 		"@types/node": "^16.18.3",
 		"nuxt": "3.0.0"
 	},

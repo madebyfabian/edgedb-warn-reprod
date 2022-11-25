@@ -12,9 +12,19 @@ module default {
     required property updatedAt -> cal::local_datetime {
       default := cal::to_local_datetime(datetime_current(), 'UTC');
     }
-    multi link followingUsers -> User;
+    multi link followingUsers -> User {
+      property followingSince -> cal::local_datetime {
+        default := cal::to_local_datetime(datetime_current(), 'UTC');
+      }
+    };
+
+    # Backlinks, meaning that the data is stored on the target, not here.
+    multi link posts := .<authorUser[is Post];
+    multi link isFollowedByUsers := .<followingUsers[is User];
+
     # Indexes
     index on (.handle);
+    index on (.authId);
   }
 
   type Post {
@@ -28,8 +38,8 @@ module default {
     required property isDeleted -> bool {
       default := false;
     }
+    link replyToPost -> Post;
     required link authorUser -> User;
-    multi link commentPosts -> Post;
     multi link postReactions -> PostReaction;
   }
 
